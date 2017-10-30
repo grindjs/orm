@@ -3,6 +3,7 @@ import './Inflect'
 import path from 'path'
 
 export class MakeModelCommand extends Command {
+
 	name = 'make:model'
 	description = 'Create a model class'
 

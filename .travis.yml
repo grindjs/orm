@@ -4,6 +4,21 @@ node_js:
   - "7"
   - "8"
 sudo: false
+
+before_script:
+  - mysql -e "CREATE USER grind_test;" -u root
+  - mysql -e "GRANT ALL PRIVILEGES ON *.* TO grind_test;" -u root
+  - mysql -e "CREATE DATABASE grind_orm_test;" -u root
+  - psql -c "CREATE USER grind_test SUPERUSER;" -U postgres
+  - psql -c "CREATE DATABASE grind_orm_test;" -U postgres
+
 script:
   - "npm run lint"
   - "npm test"
+
+services:
+  - mysql
+  - postgresql
+
+addons:
+  postgresql: '9.5'

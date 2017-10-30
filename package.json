@@ -34,6 +34,8 @@
     "grind-cli": "^0.7.0",
     "grind-db": "^0.7.0",
     "grind-framework": "^0.7.1",
+    "mysql": "^2.15.0",
+    "pg": "^7.3.0",
     "sqlite": "^2.8.0"
   },
   "engines": {

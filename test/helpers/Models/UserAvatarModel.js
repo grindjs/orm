@@ -2,6 +2,7 @@ import { Model } from '../../../src'
 import './UserModel'
 
 export class UserAvatarModel extends Model {
+
 	static tableName = 'user_avatars'
 	static eager = '[user]'
 
@@ -9,7 +10,7 @@ export class UserAvatarModel extends Model {
 		type: 'object',
 
 		properties: {
-			id: { type: 'number' },
+			id: { type: 'integer' },
 			user_id: { type: 'integer', relation: 'user' },
 			url: { type: 'string', maxLength: 128 },
 			created_at: { type: 'string', format: 'date-time' },
@@ -22,4 +23,5 @@ export class UserAvatarModel extends Model {
 			user: this.belongsTo(UserModel)
 		}
 	}
+
 }

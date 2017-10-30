@@ -16,6 +16,22 @@ Grind ORM provides an integrated ORM for [Grind](https://github.com/grindjs/fram
 
 Full documentation for Grind ORM is available on the [Grind website](https://grind.rocks/docs/guides/orm).
 
+## Testing MySQL and PostgreSQL
+Install [MySQL](https://dev.mysql.com/downloads/mysql/) and [PostgreSQL](https://www.postgresql.org/download/). Then, create users and databases:
+
+MySQL:
+```bash
+> "CREATE USER grind_test;"
+> "GRANT ALL PRIVILEGES ON `grind_orm_test`.* TO 'grind_test'@'%';"
+> "CREATE DATABASE grind_orm_test;"
+```
+
+PostgreSQL:
+```bash
+> "CREATE USER grind_test SUPERUSER;"
+> "CREATE DATABASE grind_orm_test;"
+```
+
 ## License
 
 Grind was created by [Shaun Harrison](https://github.com/shnhrrsn) and is made available under the [MIT license](LICENSE).

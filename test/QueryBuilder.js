@@ -19,7 +19,7 @@ test('orFail', async t => {
 	}
 
 	try {
-		await t.context.UserModel.query().where('id', Date.now()).orFail()
+		await t.context.UserModel.query().where('id', Math.round(Date.now() / 10000)).orFail()
 		t.fail('Should have thrown an error')
 	} catch(err) {
 		if(err instanceof ModelNotFoundError) {
