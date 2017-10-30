@@ -3,16 +3,13 @@ require('babel-polyfill')
 import './Grind'
 import { DatabaseProvider } from 'grind-db'
 import { OrmProvider } from '../../src'
+import { Databases } from './Databases'
 
-const path = require('path')
-const crypto = require('crypto')
-const fs = require('fs')
-
-export async function makeApp(boot = () => { }) {
+export async function makeApp(dbName, boot = () => { }) {
 	const app = new Grind
-	const dbPath = path.join(__dirname, `../fixtures/database/database-${crypto.randomBytes(4).toString('hex')}.sqlite`)
 
-	app.config.set('database.connections.sqlite.filename', dbPath)
+	const db = Databases[dbName]
+	await db.ready(app)
 
 	app.providers.add(DatabaseProvider)
 	app.providers.add(OrmProvider)
@@ -20,17 +17,8 @@ export async function makeApp(boot = () => { }) {
 	await app.boot()
 	await boot()
 
-	await app.db.migrate.latest()
-	await app.db.seed.run()
-
-	app.on('shutdown', () => {
-		try {
-			// eslint-disable-next-line no-sync
-			fs.unlinkSync(dbPath)
-		} catch(err) {
-			Log.error('Unable to remove test db', err)
-		}
-	})
+	await db.runMigration(app)
+	app.on('shutdown', async () => db.shutdown(app))
 
 	return app
 }

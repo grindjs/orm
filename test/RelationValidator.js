@@ -4,7 +4,7 @@ import { transaction } from 'objection'
 test('validate missing', async t => {
 	try {
 		await t.context.UserAvatarModel.query().insert({
-			user_id: Date.now(),
+			user_id: Math.round(Date.now() / 10000),
 			url: 'test'
 		})
 
